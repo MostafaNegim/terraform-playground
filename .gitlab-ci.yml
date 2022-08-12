@@ -33,12 +33,12 @@ cache:
 validate:
   stage: validate
   script:
-    - terraform validate
+    - terraform -chdir=${dir} validate
   
 plan:
   stage: plan
   script:
-    - terraform plan -out "planfile"
+    - terraform plan -chdir=${dir} -out "planfile"
   dependencies:
     - validate
   artifacts:
@@ -48,7 +48,7 @@ plan:
 apply:
   stage: apply
   script:
-    - terraform apply -input=false "planfile"
+    - terraform apply -chdir=${dir} -input=false "planfile"
   dependencies:
     - plan
   when: manual
