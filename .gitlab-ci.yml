@@ -3,6 +3,7 @@ stages:
   - validate
   - plan
   - apply
+  - destroy
 
 include:
   # Build
@@ -52,3 +53,15 @@ apply:
   dependencies:
     - plan
   when: manual
+
+destroy:
+  stage: destroy
+  environment:
+    name: production
+  script:
+    - terraform -chdir=${dir} destroy -auto-approve
+  dependencies:
+    - apply
+  when: manual
+  only:
+    - main
