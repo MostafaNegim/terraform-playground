@@ -51,6 +51,8 @@ plan:
 apply:
   stage: apply
   script:
+    - ls -la
+    - ls -al simple-ec2
     - terraform -chdir=${dir} apply -input=false "planfile"
   dependencies:
     - plan
