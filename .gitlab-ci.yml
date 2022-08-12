@@ -48,7 +48,7 @@ plan:
 apply:
   stage: apply
   script:
-    - terraform -chdir=${dir} apply -input=false "${dir}/planfile"
+    - terraform -chdir=${dir} apply -input=false "planfile"
   dependencies:
     - plan
   when: manual
