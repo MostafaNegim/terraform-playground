@@ -43,7 +43,7 @@ plan:
     - validate
   artifacts:
     paths:
-      - planfile
+      - ${dir}/planfile
 
 apply:
   stage: apply
