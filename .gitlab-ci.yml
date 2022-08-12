@@ -51,9 +51,9 @@ plan:
 apply:
   stage: apply
   script:
+    - terraform -chdir=${dir} apply -input=false "planfile"
     - ls -la
     - ls -al simple-ec2
-    - terraform -chdir=${dir} apply -input=false "planfile"
   dependencies:
     - plan
   when: manual
@@ -63,6 +63,8 @@ destroy:
   environment:
     name: production
   script:
+    - ls -la
+    - ls -al simple-ec2
     - terraform -chdir=${dir} destroy -auto-approve
   dependencies:
     - apply
