@@ -39,7 +39,9 @@ validate:
 plan:
   stage: plan
   script:
-    - terraform -chdir=${dir} plan -out "${dir}/planfile"
+    - terraform -chdir=${dir} plan -out "planfile"
+    - ls -la
+    - ls -al simple-ec2
   dependencies:
     - validate
   artifacts:
