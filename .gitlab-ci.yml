@@ -1,0 +1,32 @@
+# Official docker compose image.
+stages:
+  - build
+
+image:
+  name: docker:latest
+
+# services:
+#   - docker:dind
+
+variables:
+  TERRAFORM_IMAGE_TAG: $CI_REGISTRY_IMAGE:v1.0.0
+
+
+build:s3-client:
+  stage: build
+  script: 
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $TERRAFORM_IMAGE_TAG .
+    - docker push $TERRAFORM_IMAGE_TAG
+  
+
+# test:db-and-s3:
+#   stage: test
+#   script:
+#     - docker compose -f docker-compose.yaml -f docker-compose.test.yaml up client
+
+# deploy:
+#   stage: production
+#   script:
+#     - docker compose up client
+#   when: manual
