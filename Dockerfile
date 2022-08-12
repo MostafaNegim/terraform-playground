@@ -1,6 +1,8 @@
 FROM debian:11.4-slim
 
-LABEL MAINTAINER="monegim"
+LABEL AUTHOR="monegim"
+
+ARG TERRAFORM_VERSION=1.2.7
 
 RUN apt-get update \
     && apt-get install -y gnupg software-properties-common curl \
@@ -14,7 +16,7 @@ RUN apt-get update \
             https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
             tee /etc/apt/sources.list.d/hashicorp.list \
     && apt update \
-    && apt-get install terraform \
+    && apt-get install terraform=${TERRAFORM_VERSION} \
     && rm -rf /var/lib/apt/lists/*
 
 CMD [ "terraform", "-version"]
