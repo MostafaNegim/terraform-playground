@@ -28,7 +28,7 @@ before_script:
 cache:
   key: terraform
   paths:
-    - .terraform
+    - ${dir}/.terraform
 
 validate:
   stage: validate
@@ -43,12 +43,12 @@ plan:
     - validate
   artifacts:
     paths:
-      - planfile
+      - ${dir}/planfile
 
 apply:
   stage: apply
   script:
-    - terraform -chdir=${dir} apply -input=false "planfile"
+    - terraform -chdir=${dir} apply -input=false "${dir}/planfile"
   dependencies:
     - plan
   when: manual
