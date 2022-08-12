@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  
+
 image:
   name: docker:latest
 
@@ -10,13 +10,14 @@ services:
 
 variables:
   TERRAFORM_IMAGE_TAG: $CI_REGISTRY_IMAGE:v1.0.0
+  TERRAFORM_VERSION: 1.2.7
 
 
 build:terraform:
   stage: build
   script: 
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $TERRAFORM_IMAGE_TAG .
+    - docker build --build-arg TERRAFORM_VERSION=1.2.7 -t $TERRAFORM_IMAGE_TAG .
     - docker push $TERRAFORM_IMAGE_TAG
 
 test:terraform:
