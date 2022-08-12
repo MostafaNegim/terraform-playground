@@ -30,6 +30,7 @@ cache:
   key: terraform
   paths:
     - ${dir}/.terraform
+    - ${dir}/terraform.tfstate
 
 validate:
   stage: validate
@@ -47,6 +48,8 @@ plan:
   artifacts:
     paths:
       - ${dir}/planfile
+      - ${dir}/terraform.tfstate
+    expire_in: "1 days"
 
 apply:
   stage: apply
