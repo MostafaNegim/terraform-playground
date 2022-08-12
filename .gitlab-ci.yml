@@ -1,7 +1,7 @@
-# Official docker compose image.
 stages:
   - build
-
+  - test
+  
 image:
   name: docker:latest
 
@@ -18,6 +18,11 @@ build:terraform:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $TERRAFORM_IMAGE_TAG .
     - docker push $TERRAFORM_IMAGE_TAG
+
+test:terraform:
+  stage: test
+  script:
+    - docker run $TERRAFORM_IMAGE_TAG
   
 
 # test:db-and-s3:
