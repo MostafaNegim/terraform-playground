@@ -1,7 +1,3 @@
-variables:
-  TERRAFORM_IMAGE_TAG: $CI_REGISTRY_IMAGE:$TERRAFORM_VERSION
-  TERRAFORM_VERSION: 1.2.7
-
 build:terraform:
   image:
     name: docker:latest
