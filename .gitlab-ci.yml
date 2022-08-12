@@ -28,7 +28,7 @@ before_script:
 cache:
   key: terraform
   paths:
-    - .terraform
+    - ${dir}/.terraform
 
 validate:
   stage: validate
