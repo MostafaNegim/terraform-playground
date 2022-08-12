@@ -39,7 +39,7 @@ validate:
 plan:
   stage: plan
   script:
-    - terraform -chdir=${dir} plan -out "planfile"
+    - terraform -chdir=${dir} plan -out "${dir}/planfile"
   dependencies:
     - validate
   artifacts:
