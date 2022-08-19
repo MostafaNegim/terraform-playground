@@ -1,5 +1,5 @@
 provider "aws" {
-    region = variable.region
+    region = var.region
 }
 # resource "aws_instance" "jump_server" {
 
