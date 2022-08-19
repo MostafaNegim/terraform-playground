@@ -1,3 +1,3 @@
 output "ubuntu_amis" {
-    value = ""
+    value = aws_ami.ubuntu_amis
 }
