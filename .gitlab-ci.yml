@@ -42,7 +42,7 @@ plan:
   script:
     - terraform -chdir=${dir} plan -out "planfile"
     - ls -la
-    - ls -al simple-ec2
+    - ls -al ${dir}
   dependencies:
     - validate
   artifacts:
@@ -56,7 +56,7 @@ apply:
   script:
     - terraform -chdir=${dir} apply -input=false "planfile"
     - ls -la
-    - ls -al simple-ec2
+    - ls -al ${dir}
   dependencies:
     - plan
   when: manual
@@ -67,7 +67,7 @@ destroy:
     name: production
   script:
     - ls -la
-    - ls -al simple-ec2
+    - ls -al ${dir}
     - terraform -chdir=${dir} destroy -auto-approve
   dependencies:
     - apply
