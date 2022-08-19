@@ -1,3 +1,3 @@
 output "ubuntu_amis" {
-    value = aws_ami.ubuntu_amis
+    value = data.aws_ami.ubuntu_amis
 }
