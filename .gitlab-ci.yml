@@ -12,7 +12,7 @@ include:
 variables:
   TERRAFORM_IMAGE_TAG: $CI_REGISTRY_IMAGE:$TERRAFORM_VERSION
   TERRAFORM_VERSION: 1.2.7
-  dir: simple-ec2
+  dir: ansible
 
 image:
   name: hashicorp/terraform:$TERRAFORM_VERSION
