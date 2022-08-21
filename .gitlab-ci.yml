@@ -1,76 +1,32 @@
 stages:
-  - build
   - validate
   - plan
   - apply
   - destroy
 
 include:
-  # Build
-  - local: '.gitlab/build.yml'
+  - template: .gitlab/Base.gitlab-ci.yml 
 
 variables:
-  TERRAFORM_IMAGE_TAG: $CI_REGISTRY_IMAGE:$TERRAFORM_VERSION
-  TERRAFORM_VERSION: 1.2.7
   dir: ansible
+  TF_ROOT: ${CI_PROJECT_DIR}/$dir  # The relative path to the root directory of the Terraform project
+  TF_STATE_NAME: ${TF_STATE_NAME:-default}  # The name of the state file used by the GitLab Managed Terraform state backend
 
-image:
-  name: hashicorp/terraform:$TERRAFORM_VERSION
-  entrypoint:
-    - /usr/bin/env
-    - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-before_script:
-  - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-  - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  - rm -rf .terraform
-  - terraform --version
-  - terraform -chdir=${dir} init
-cache:
-  key: terraform
-  paths:
-    - ${dir}/.terraform
-    - ${dir}/terraform.tfstate
+fmt:
+  extends: .terraform:fmt
+  needs: []
 
 validate:
-  stage: validate
-  script:
-    - terraform -chdir=${dir} validate
-  
-plan:
-  stage: plan
-  script:
-    - terraform -chdir=${dir} plan -out "planfile"
-    - ls -la
-    - ls -al ${dir}
-  dependencies:
-    - validate
-  artifacts:
-    paths:
-      - ${dir}/planfile
-      - ${dir}/terraform.tfstate
-    expire_in: "1 days"
+  extends: .terraform:validate
+  needs: []
 
-apply:
-  stage: apply
-  script:
-    - terraform -chdir=${dir} apply -input=false "planfile"
-    - ls -la
-    - ls -al ${dir}
-  dependencies:
-    - plan
-  when: manual
+build:
+  extends: .terraform:build
 
-destroy:
-  stage: destroy
+deploy:
+  extends: .terraform:deploy
+  dependencies:
+    - build
   environment:
-    name: production
-  script:
-    - ls -la
-    - ls -al ${dir}
-    - terraform -chdir=${dir} destroy -auto-approve
-  dependencies:
-    - apply
-  when: manual
-  only:
-    - main
+    name: $TF_STATE_NAME
+
