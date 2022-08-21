@@ -1,6 +1,6 @@
 stages:
+  - prepare
   - validate
-  - test
   - build
   - deploy
 
