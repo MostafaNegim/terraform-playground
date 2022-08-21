@@ -28,6 +28,8 @@ deploy:
   extends: .terraform:deploy
   dependencies:
     - build
-  environment:
-    name: $TF_STATE_NAME
+  script:
+    - echo $TF_STATE_NAME
+  # environment:
+  #   name: $TF_STATE_NAME
 
