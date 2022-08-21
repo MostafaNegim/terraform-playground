@@ -17,13 +17,13 @@ variables:
 init:
   stage: prepare
   script:
-    - ./init.sh
+    - source init.sh
 
 
 validate:
   stage: validate
   script:
-    - ./init.sh
+    - source init.sh
     - gitlab-terraform validate
 
 plan:
