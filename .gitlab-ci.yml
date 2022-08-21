@@ -1,8 +1,9 @@
 stages:
   - validate
-  - plan
-  - apply
-  - destroy
+  - test
+  - build
+  - deploy
+
 
 include:
   - local: .gitlab/Base.gitlab-ci.yml 
