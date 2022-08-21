@@ -12,6 +12,7 @@ image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 variables:
   dir: ansible
   TF_ROOT: ${CI_PROJECT_DIR}/$dir  # The relative path to the root directory of the Terraform project
+  TF_PLAN_JSON: TF_ROOT
   TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_PROJECT_NAME}
   # TF_STATE_NAME: ${TF_STATE_NAME:-default}  # The name of the state file used by the GitLab Managed Terraform state backend
 
