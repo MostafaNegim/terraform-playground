@@ -2,6 +2,12 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "ec2_name" {
+  type        = string
+  description = "EC2 name"
+  default = "ansible_host"
+}
+
 # variable "remote_state_address" {
 #   type        = string
 #   description = "Gitlab remote state file address"
