@@ -1,9 +1,12 @@
 provider "aws" {
-    region = var.region
+  region = var.region
 }
-# resource "aws_instance" "jump_server" {
 
-# }
+resource "aws_instance" "jump_server" {
+  ami = data.aws_ami.ubuntu_amis.id
+  instance_type = "t2.micro"
+  tags = var.ec2_name
+}
 
 data "aws_ami" "ubuntu_amis" {
   most_recent = true
@@ -13,10 +16,10 @@ data "aws_ami" "ubuntu_amis" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
-#   filter {
-#     name   = "virtualization-type"
-#     values = ["hvm"]
-#   }
+  #   filter {
+  #     name   = "virtualization-type"
+  #     values = ["hvm"]
+  #   }
 
   owners = ["099720109477"] # Canonical
 }
