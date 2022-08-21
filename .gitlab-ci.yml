@@ -5,29 +5,51 @@ stages:
   - deploy
 
 
-include:
-  - local: .gitlab/Base.gitlab-ci.yml 
+# include:
+#   - local: .gitlab/Base.gitlab-ci.yml 
 
 variables:
   dir: ansible
   TF_ROOT: ${CI_PROJECT_DIR}/$dir  # The relative path to the root directory of the Terraform project
+  TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_PROJECT_NAME}
   # TF_STATE_NAME: ${TF_STATE_NAME:-default}  # The name of the state file used by the GitLab Managed Terraform state backend
 
-fmt:
-  extends: .terraform:fmt
-  needs: []
+init:
+  stage: prepare
+  script:
+    - ./init.sh
+
 
 validate:
-  extends: .terraform:validate
-  needs: []
+  stage: validate
+  script:
+    - ./init.sh
+    - gitlab-terraform validate
 
-build:
-  extends: .terraform:build
+plan:
+  stage: build
+  script:
+    - gitlab-terraform plan
+    - gitlab-terraform plan-json
+  artifacts:
+    name: plan
+    paths:
+      - ${TF_ROOT}/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
 
-deploy:
-  extends: .terraform:deploy
+# Separate apply job for manual launching Terraform as it can be destructive
+# action.
+apply:
+  stage: deploy
+  environment:
+    name: production
+  script:
+    - gitlab-terraform apply
   dependencies:
-    - build
-  # environment:
-  #   name: $TF_STATE_NAME
+    - plan
+  when: manual
+  only:
+    - master
+
 
