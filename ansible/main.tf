@@ -3,9 +3,11 @@ provider "aws" {
 }
 
 resource "aws_instance" "jump_server" {
-  ami = data.aws_ami.ubuntu_amis.id
+  ami           = data.aws_ami.ubuntu_amis.id
   instance_type = "t2.micro"
-  tags = var.ec2_name
+  tags = {
+    Name = var.ec2_name
+  }
 }
 
 data "aws_ami" "ubuntu_amis" {
