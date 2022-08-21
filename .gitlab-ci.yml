@@ -32,6 +32,7 @@ plan:
   script:
     - gitlab-terraform plan
     - gitlab-terraform plan-json
+    - ls ${TF_ROOT}
   artifacts:
     name: plan
     paths:
@@ -51,6 +52,6 @@ apply:
     - plan
   when: manual
   only:
-    - master
+    - main
 
 
