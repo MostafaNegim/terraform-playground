@@ -8,6 +8,15 @@ variable "ec2_name" {
   default = "ansible_host"
 }
 
+variable "aws_properties" {
+  type = "map"
+  default = {
+    public_ip = true
+    key_name = "myseckey"
+    secgroupname = "IAC-Sec-Group"
+  }
+}
+
 # variable "remote_state_address" {
 #   type        = string
 #   description = "Gitlab remote state file address"
