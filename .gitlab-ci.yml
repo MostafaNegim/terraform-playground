@@ -11,7 +11,7 @@ image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 #   - local: .gitlab/Base.gitlab-ci.yml 
 
 variables:
-  dir: ansible
+  dir: simple-ec2-with-custom-vpc
   TF_ROOT: ${CI_PROJECT_DIR}/$dir  # The relative path to the root directory of the Terraform project
   TF_PLAN_JSON: ${TF_ROOT}/plan.json
   TF_STATE_NAME: ${dir}
