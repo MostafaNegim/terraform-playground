@@ -9,7 +9,7 @@ variable "ec2_name" {
 }
 
 variable "aws_properties" {
-  type = "map"
+  type = map
   default = {
     public_ip = true
     key_name = "myseckey"
