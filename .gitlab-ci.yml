@@ -3,6 +3,7 @@ stages:
   - validate
   - build
   - deploy
+  - destroy
 
 image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
@@ -56,5 +57,16 @@ apply:
   when: manual
   only:
     - main
+
+destroy:
+  stage: destroy
+  script:
+    - gitlab-terraform destroy
+  dependencies:
+    - apply
+  when: manual
+  only:
+    - main
+
 
 
