@@ -8,6 +8,8 @@ resource "aws_instance" "jump_server" {
   tags = {
     Name = var.ec2_name
   }
+  security_groups = [ "${aws_security_group.sg.id}" ]
+  keykey_name = aws_key_pair.kp.key_name
 }
 
 data "aws_ami" "ubuntu_amis" {
