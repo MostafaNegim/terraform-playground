@@ -27,3 +27,7 @@ data "aws_ami" "ubuntu_amis" {
 
   owners = ["099720109477"] # Canonical
 }
+
+resource "aws_eip" "ip" {
+    instance = aws_instance.jump_server.id
+}
