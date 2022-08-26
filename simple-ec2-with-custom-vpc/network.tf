@@ -17,20 +17,20 @@ resource "aws_subnet" "subnet" {
 resource "aws_security_group" "sg" {
   name   = "sg"
   vpc_id = aws_vpc.vpc.id
-  ingress = [{
+  ingress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "Ingress Description"
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
-  }]
-  egress = [{
+  }
+  egress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "Egress Description"
     from_port   = 0
-    protocol    = -1
+    protocol    = "-1"
     to_port     = 0
-  }]
+  }
 }
 
 resource "aws_eip" "eip" {
