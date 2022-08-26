@@ -2,7 +2,7 @@ resource "aws_instance" "ec2" {
   ami           = data.aws_ami.ubuntu_amis.id
   instance_type = "t2.micro"
   tags = {
-    Name = var.ec2_name
+    Name = var.vpc_vars.ec2_name
   }
   #   vpc_security_group_ids = [ "${aws_security_group.sg.id}" ]
   security_groups = ["${aws_security_group.sg.id}"]
