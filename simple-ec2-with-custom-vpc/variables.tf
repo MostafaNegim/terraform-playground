@@ -5,6 +5,6 @@ variable "region" {
 variable "vpc_vars" {
   type = map
   default = {
-    
+    key_name = "myseckey"
   }
 }
