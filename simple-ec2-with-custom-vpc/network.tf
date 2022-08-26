@@ -41,7 +41,7 @@ resource "aws_eip" "eip" {
 # gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.vpc.id}"
-  tags {
+  tags = {
     Name = "igw"
   }
 }
@@ -53,7 +53,7 @@ resource "aws_route_table" "rt" {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.gw.id}"
   }
-  tags {
+  tags = {
     Name = "route_table"
   }
 }
