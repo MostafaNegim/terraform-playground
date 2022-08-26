@@ -40,7 +40,7 @@ resource "aws_eip" "eip" {
 
 # gateway
 resource "aws_internet_gateway" "gw" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
   tags = {
     Name = "igw"
   }
@@ -51,7 +51,7 @@ resource "aws_route_table" "rt" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.gw.id}"
+    gateway_id = aws_internet_gateway.gw.id
   }
   tags = {
     Name = "route_table"
@@ -59,6 +59,6 @@ resource "aws_route_table" "rt" {
 }
 
 resource "aws_route_table_association" "rt_association" {
-  subnet_id = "${aws_subnet.subnet.id}"
-  route_table_id = "${aws_route_table.rt.id}"
+  subnet_id      = aws_subnet.subnet.id
+  route_table_id = aws_route_table.rt.id
 }

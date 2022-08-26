@@ -1,7 +1,7 @@
 terraform {
-    backend "http" {
-        
-    }
+  backend "http" {
+
+  }
 }
 
 provider "aws" {

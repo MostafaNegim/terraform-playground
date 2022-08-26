@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "vpc_vars" {
-  type = map
+  type = map(any)
   default = {
     key_name = "myseckey"
     ec2_name = "ec2"
