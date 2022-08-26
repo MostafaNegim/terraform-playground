@@ -13,7 +13,7 @@ resource "aws_subnet" "subnet" {
   vpc_id            = aws_vpc.vpc.id
   availability_zone = "${var.region}a"
 }
-
+# sg
 resource "aws_security_group" "sg" {
   name   = "sg"
   vpc_id = aws_vpc.vpc.id
@@ -32,8 +32,25 @@ resource "aws_security_group" "sg" {
     to_port     = 0
   }
 }
-
+# eip
 resource "aws_eip" "eip" {
-  instance = "${aws_instance.ec2.id}"
-  vpc = true
+  instance = aws_instance.ec2.id
+  vpc      = true
 }
+
+# gateway
+resource "aws_internet_gateway" "gw" {
+  vpc_id = "${aws_vpc.vpc.id}"
+  tags {
+    Name = "igw"
+  }
+}
+
+# resource "aws_route_table" "rt" {
+#   vpc_id = aws_vpc.vpc.id
+
+#   route {
+#     cidr_block = "0.0.0.0/0"
+#     gateway_id = aws_
+#   }
+# }
