@@ -6,5 +6,6 @@ variable "vpc_vars" {
   type = map
   default = {
     key_name = "myseckey"
+    ec2_name = "ec2"
   }
 }
