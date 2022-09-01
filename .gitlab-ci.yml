@@ -64,7 +64,7 @@ output:
   environment:
     name: production
   script:
-    - gitlab-terraform output -json > ${TF_ROOT}/${OUTPUT_FILE}
+    - gitlab-terraform output -chdir=${TF_ROOT} -json > ${TF_ROOT}/${OUTPUT_FILE}
   dependencies:
     - apply
   artifacts:
