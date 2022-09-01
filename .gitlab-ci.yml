@@ -35,7 +35,6 @@ plan:
   script:
     - gitlab-terraform plan
     - gitlab-terraform plan-json
-    - echo ${TF_PLAN_JSON}
     - ls ${TF_ROOT}
   artifacts:
     name: plan
@@ -54,6 +53,27 @@ apply:
     - gitlab-terraform apply
   dependencies:
     - plan
+  when: manual
+  only:
+    - main
+
+output:
+  stage: deploy
+  variables: 
+    output_file: output.json
+  environment:
+    name: production
+  script:
+    - gitlab-terraform output -json > ${output_file}
+    - ls ${TF_ROOT}
+  dependencies:
+    - apply
+  artifacts:
+    name: plan
+    paths:
+      - ${TF_ROOT}/output_file
+    reports:
+      terraform: ${TF_ROOT}/output_file
   when: manual
   only:
     - main
