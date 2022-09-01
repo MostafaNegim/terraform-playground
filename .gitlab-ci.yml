@@ -72,8 +72,8 @@ output:
     name: plan
     paths:
       - ${TF_ROOT}/OUTPUT_FILE
-    reports:
-      terraform: ${TF_ROOT}/OUTPUT_FILE
+    # reports:
+    #   terraform: ${TF_ROOT}/OUTPUT_FILE
   when: manual
   only:
     - main
