@@ -47,35 +47,22 @@ plan:
 # action.
 apply:
   stage: deploy
-  environment:
-    name: production
-  script:
-    - gitlab-terraform apply
-  dependencies:
-    - plan
-  when: manual
-  only:
-    - main
-
-output:
-  stage: deploy
   variables: 
     OUTPUT_FILE: output.json
   environment:
     name: production
   script:
+    - gitlab-terraform apply
     - gitlab-terraform -chdir=${TF_ROOT} output  -json > ${TF_ROOT}/${OUTPUT_FILE}
   dependencies:
-    - apply
+    - plan
+  when: manual
+  only:
+    - main
   artifacts:
     name: output
     paths:
       - ${TF_ROOT}/${OUTPUT_FILE}
-    # reports:
-    #   terraform: ${TF_ROOT}/${OUTPUT_FILE}
-  when: manual
-  only:
-    - main
 
 destroy:
   stage: destroy
