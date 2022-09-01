@@ -60,20 +60,20 @@ apply:
 output:
   stage: deploy
   variables: 
-    output_file: output.json
+    OUTPUT_FILE: output.json
   environment:
     name: production
   script:
-    - gitlab-terraform output -json > ${output_file}
+    - gitlab-terraform output -json > ${TF_ROOT}/${OUTPUT_FILE}
     - ls ${TF_ROOT}
   dependencies:
     - apply
   artifacts:
     name: plan
     paths:
-      - ${TF_ROOT}/output_file
+      - ${TF_ROOT}/OUTPUT_FILE
     reports:
-      terraform: ${TF_ROOT}/output_file
+      terraform: ${TF_ROOT}/OUTPUT_FILE
   when: manual
   only:
     - main
