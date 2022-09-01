@@ -65,15 +65,14 @@ output:
     name: production
   script:
     - gitlab-terraform output -json > ${TF_ROOT}/${OUTPUT_FILE}
-    - ls ${TF_ROOT}
   dependencies:
     - apply
   artifacts:
-    name: plan
+    name: output
     paths:
-      - ${TF_ROOT}/OUTPUT_FILE
+      - ${TF_ROOT}/${OUTPUT_FILE}
     # reports:
-    #   terraform: ${TF_ROOT}/OUTPUT_FILE
+    #   terraform: ${TF_ROOT}/${OUTPUT_FILE}
   when: manual
   only:
     - main
