@@ -48,3 +48,12 @@ variable "vpc_tags" {
     Environment = "dev"
   }
 }
+
+variable "ec2_tags" {
+  description = "Tags to apply to resources created by EC2 module"
+  type        = map(string)
+  default = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
