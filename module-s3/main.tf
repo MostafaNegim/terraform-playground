@@ -24,10 +24,20 @@ module "ec2_instance" {
 
   for_each               = toset(["one", "two"])
   name                   = "my-ec2-cluster-${each.key}"
-  ami                    = "ami-ebd02392"
+  ami                    = data.aws_ami.ubuntu_amis
   instance_type          = "t2.micro"
   vpc_security_group_ids = [module.vpc.default_vpc_default_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
 
   tags = var.ec2_tags
+}
+
+data "aws_ami" "ubuntu_amis" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  owners = ["099720109477"] # Canonical
 }
