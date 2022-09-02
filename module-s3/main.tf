@@ -20,7 +20,7 @@ module "vpc" {
 
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "4.1.4"
+  version = "~> 4.0"
 
   for_each               = toset([1, 2])
   name                   = "my-ec2-cluster-${each.key}"
