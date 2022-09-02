@@ -24,7 +24,7 @@ module "ec2_instance" {
 
   for_each               = toset(["one", "two"])
   name                   = "my-ec2-cluster-${each.key}"
-  ami                    = data.aws_ami.ubuntu_amis
+  ami                    = data.aws_ami.ubuntu_amis.id
   instance_type          = "t2.micro"
   vpc_security_group_ids = [module.vpc.default_vpc_default_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
