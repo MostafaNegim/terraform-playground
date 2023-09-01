@@ -6,6 +6,6 @@ variable "str-1" {
   
 }
 
-output "out" {
+output "str-1" {
   value = var.str-1
 }
